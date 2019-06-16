@@ -16,7 +16,7 @@ public class ArrayStorage {
 
     void save(Resume r) {
         if (Objects.isNull(r)) {
-            return;
+                return;
         }//провірка if (r !==null)
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(r.uuid)) {//перевіряємо чи є однакове резюме в масиві
@@ -29,7 +29,6 @@ public class ArrayStorage {
     }
 
     Resume get(String uuid) {
-
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 return storage[i];
@@ -52,11 +51,11 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        Resume[] resumes2 = new Resume[size]; //створюємо новий масів з розмірністю яка получилася
+        Resume[] rezalt = new Resume[size]; //створюємо новий масів з розмірністю яка получилася
         for (int i = 0; i < size; i++) {
-            resumes2[i] = storage[i]; //переназиваємо масив
+            rezalt[i] = storage[i]; //переназиваємо масив
         }
-        return resumes2;
+        return rezalt;
     }
 
     int size() {
