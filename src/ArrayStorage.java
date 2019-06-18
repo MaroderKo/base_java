@@ -1,48 +1,43 @@
-import java.util.Objects;
-
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
-    int size;
 
-    void clear() {// пройшли по масиву і занулили усе що є
+    private Resume[] storage = new Resume[10000];
+    private int size = 0;
+
+    public void clear() {
         for (int i = 0; i < size; i++) {
             storage[i] = null;
-            size = 0;// занулили лічильник
         }
+        size = 0;
+
     }
 
-    void save(Resume r) {
-        if (Objects.isNull(r)) {
-                return;
-        }//провірка if (r !==null)
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(r.uuid)) {//перевіряємо чи є однакове резюме в масиві
-                return;
-            }
-        }
+    public void save(Resume r) {
+        //TODO check if resume present & check storage overflow
         storage[size] = r;
         size++;
 
     }
 
-    Resume get(String uuid) {
+    public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (uuid.equals(storage[i].uuid)) {
                 return storage[i];
             }
         }
-        return null; //якщо знайшли рівні uuid
+        return null;
+
     }
 
-    void delete(String uuid) {
-        for (int i = 0; i < size; i++) {// пройшли по масиву
-            if (storage[i].uuid.equals(uuid)) {
-                storage[i] = storage[size - 1]; //перезаписуємо на місце того що удаляємо кінцевий елемент масиву
-                storage[size - 1] = null; // навірняка занулюємоостанній
-                size--; //зменьшуємо розмір ліста на один
+    public void delete(String uuid) {
+        // TODO check if resume present
+        for (int i = 0; i < size; i++) {
+            if (uuid.equals(storage[i].uuid)) {
+                storage[i] = storage[size - 1];
+                storage[size - 1] = null;
+                size--;
             }
         }
     }
@@ -50,15 +45,18 @@ public class ArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
-        Resume[] rezalt = new Resume[size]; //створюємо новий масів з розмірністю яка получилася
+
+    public Resume[] getAll() {
+        Resume[] result = new Resume[size];
         for (int i = 0; i < size; i++) {
-            rezalt[i] = storage[i]; //переназиваємо масив
+            result[i] = storage[i];
         }
-        return rezalt;
+        return result;
+
     }
 
-    int size() {
+    public int size() {
         return size;
     }
+
 }
