@@ -2,6 +2,8 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
+import java.util.Arrays;
+
 /**
  * Array based storage for Resumes
  */
@@ -23,6 +25,10 @@ public abstract class AbstractArrayStorage implements Storage {
         }
         return storage[index];
     }
+
+    protected abstract void fillDeletedElement(int index);
+
+    protected abstract void insertElement(Resume r, int index);
 
     protected abstract int getIndex(String uuid);
 }
