@@ -1,6 +1,5 @@
 package ru.javawebinar.basejava.storage;
 
-import jdk.jfr.internal.tool.PrettyWriter;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
@@ -10,15 +9,15 @@ import java.util.Map;
 
 // TODO implement
 // TODO create new MapStorage with search key not uuid
-public class MapUuidStorage extends AbstractStorage {
+public class MapNameStorage extends AbstractStorage {
     private Map<String, Resume> map = new HashMap<>();
 
     @Override
-    protected String getSearchKey(String uuid) {
+    protected String getSearchKey(String fullname) {
 
         for (Map.Entry ent :
                 map.entrySet()) {
-            if (((Resume)ent.getValue()).getUuid().equals(uuid))
+            if (((Resume)ent.getValue()).getFullName().equals(fullname))
             {
                 return (String) ent.getKey();
             }
@@ -59,7 +58,7 @@ public class MapUuidStorage extends AbstractStorage {
     @Override
     public List<Resume> getAllSorted() {
         List<Resume> list = new ArrayList<>(map.values());
-        list.sort((o1, o2) -> o1.getUuid().compareTo(o2.getUuid()));
+        list.sort((o1, o2) -> (o1.getUuid().compareTo(o2.getUuid()) == 0 ? o1.getUuid().compareTo(o2.getUuid()) : o1.getUuid().compareTo(o2.getUuid())));
         return list;
     }
 
