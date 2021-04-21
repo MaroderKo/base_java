@@ -4,6 +4,7 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -32,8 +33,14 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
     public List<Resume> getAllSorted() {
-        List<Resume> list = Arrays.asList(storage);
-        list.sort((o1, o2) -> o1.getUuid().compareTo(o2.getUuid()));
+        if (storage == null) return null;
+        List<Resume> list = Arrays.asList(Arrays.copyOfRange(storage,0,this.size));
+        list.sort(new Comparator<Resume>() {
+            @Override
+            public int compare(Resume o1, Resume o2) {
+                return o1.getUuid().compareTo(o2.getUuid());
+            }
+        });
         return list;
     }
 }

@@ -43,7 +43,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public List<Resume> getAllSorted() {
-        List<Resume> list = Arrays.asList(storage);
+        List<Resume> list = Arrays.asList(Arrays.copyOfRange(storage,0,this.size));
         list.sort((o1, o2) -> o1.getUuid().compareTo(o2.getUuid()));
         return list;
     }
