@@ -23,7 +23,7 @@ public class MapUuidStorage extends AbstractStorage {
                 return (String) ent.getKey();
             }
         }
-        return null;
+        return uuid+map.size();
     }
 
     @Override
