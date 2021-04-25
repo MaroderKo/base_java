@@ -14,11 +14,20 @@ public class OrganizationSection extends Section {
         Objects.requireNonNull(organizations, "organizations must not be null");
         this.organizations = organizations;
     }
-
     public List<Organization> getOrganizations() {
         return organizations;
     }
 
+    public void addOrganization(Organization org)
+    {
+        for (Organization organization : organizations)
+        {
+            if (organization.info.get(0).getHomePage().equals(org.info.get(0).getHomePage()))
+            {
+
+            }
+        }
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

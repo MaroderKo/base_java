@@ -1,10 +1,13 @@
 package ru.javawebinar.basejava.storage;
 
+import com.google.gson.Gson;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,12 +31,19 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-
+        if (directory.list().length != 0)
+        {
+            for (String path : directory.list())
+            {
+                File temp = new File(directory+path);
+                temp.delete();
+            }
+        }
     }
 
     @Override
     public int size() {
-        return 0;
+        return directory.list().length;
     }
 
     @Override
@@ -43,7 +53,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected void doUpdate(Resume r, File file) {
-
+        throw new NotImplementedException();
     }
 
     @Override
@@ -61,16 +71,41 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         }
     }
 
-    protected abstract void doWrite(Resume r, File file) throws IOException;
+    abstract protected void doWrite(Resume r, File file) throws IOException;
 
-    @Override
-    protected Resume doGet(File file) {
-        return null;
-    }
 
+    abstract protected Resume doGet(File file);
+//    protected void doWrite(Resume r, File file) throws IOException
+//    {
+//
+//        Gson gson = new Gson();
+//        String str = gson.toJson(r);
+//        file.createNewFile();
+//        FileOutputStream fis = new FileOutputStream(file.getPath());
+//        ObjectOutputStream oos = new ObjectOutputStream(fis);
+//        oos.writeBytes(str);
+//        oos.close();
+//        fis.close();
+//
+//    }
+//
+//    @Override
+//    protected Resume doGet(File file) {
+//        Gson gson = new Gson();
+//        Resume resume = null;
+//        try(FileInputStream fis = new FileInputStream(file.getPath()); ObjectInputStream oos = new ObjectInputStream(fis)) {
+//            String raw = (String) oos.readObject();
+//            resume = gson.fromJson(raw,Resume.class);
+//
+//        } catch (IOException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        return resume;
+//
+//    }
     @Override
     protected void doDelete(File file) {
-
+        file.delete();
     }
 
     @Override
